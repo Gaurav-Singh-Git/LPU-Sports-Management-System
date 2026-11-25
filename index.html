@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LPU Sports Management System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section id="welcomeScreen" class="welcome-screen">
+  <div class="welcome-top">
+    <div class="welcome-brand"><div class="welcome-logo">LPU</div><div><strong>LOVELY PROFESSIONAL UNIVERSITY</strong><small>SPORTS MANAGEMENT SYSTEM</small></div></div>
+    <div class="welcome-tag">STUDENT PROJECT DEMONSTRATION</div>
+  </div>
+  <div class="welcome-content">
+    <div class="welcome-copy"><div class="welcome-eyebrow">YOUR SPORTS, ONE PLATFORM</div><h1>Welcome to the<br><span>LPU Sports Arena</span></h1><p class="welcome-description">A smarter way to manage athletes, coaches, training schedules and performance. Everything your sports department needs, all in one place.</p><button class="welcome-button" onclick="enterSystem()">Explore Dashboard <span>→</span></button><div class="welcome-note">BUILDING TEAMWORK. CELEBRATING EXCELLENCE.</div></div>
+    <div class="welcome-visual"><div class="welcome-orbit orbit-one"></div><div class="welcome-orbit orbit-two"></div><div class="welcome-trophy">🏆</div><div class="welcome-sport sport-one">🏏</div><div class="welcome-sport sport-two">⚽</div><div class="welcome-sport sport-three">🏀</div><div class="welcome-sport sport-four">🏸</div><div class="welcome-visual-caption">TRAIN • COMPETE • EXCEL</div></div>
+  </div>
+  <div class="welcome-footer"><span>LOVELY PROFESSIONAL UNIVERSITY</span><span>SPORTS MANAGEMENT SYSTEM</span></div>
+</section>
+<div id="appShell" class="app-shell hidden">
+<header class="header">
+  <div class="brand">
+    <div class="logo"><span>L</span><span>P</span><span>U</span></div>
+    <div><h2>LOVELY PROFESSIONAL UNIVERSITY</h2><p>SPORTS MANAGEMENT SYSTEM</p></div>
+  </div>
+  <b class="admin">ADMIN PANEL</b>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <h3>MAIN MENU</h3>
+    <button class="nav active" onclick="showPage('dashboard',this)">Dashboard</button>
+    <button class="nav" onclick="showPage('athletes',this)">Athletes</button>
+    <button class="nav" onclick="showPage('coaches',this)">Coaches</button>
+    <button class="nav" onclick="showPage('sports',this)">Sports</button>
+    <button class="nav" onclick="showPage('batches',this)">Batch Allocation</button>
+    <button class="nav" onclick="showPage('schedule',this)">Training Schedule</button>
+    <button class="nav" onclick="showPage('attendance',this)">Attendance</button>
+    <button class="nav" onclick="showPage('performance',this)">Performance</button>
+    <div class="side-note"><b>LPU SPORTS</b><p>Manage sports activities in one place.</p></div>
+  </aside>
+  <main>
+    <section id="dashboard" class="page show">
+      <div class="welcome"><div><small>LOVELY PROFESSIONAL UNIVERSITY</small><h1>Sports Dashboard</h1><p>Welcome to the LPU Sports Management System.</p></div><div class="trophy">🏆</div></div>
+      <div class="stats">
+        <div class="stat"><p>Total Athletes</p><h2 id="athleteCount">0</h2></div>
+        <div class="stat"><p>Total Coaches</p><h2 id="coachCount">0</h2></div>
+        <div class="stat"><p>Sports Available</p><h2 id="sportCount">5</h2></div>
+      </div>
+      <div class="card"><h2>About This Project</h2><p>This website helps the university manage athlete details, coach details, sports activities, attendance and performance records.</p><p>It is built using beginner-level HTML, CSS and JavaScript. Browser LocalStorage saves records on this device.</p></div>
+    </section>
+
+    <section id="athletes" class="page">
+      <div class="heading"><div><small>STUDENT RECORDS</small><h1>Athlete Management</h1></div></div>
+      <div class="card"><h2>Add New Athlete</h2>
+        <div class="form-row"><input id="aName" placeholder="Athlete name"><input id="aAge" type="number" placeholder="Age">
+          <select id="aSport"><option value="">Select sport</option><option>Cricket</option><option>Football</option><option>Basketball</option><option>Badminton</option><option>Athletics</option></select>
+          <button onclick="addAthlete()">Save Athlete</button></div>
+      </div>
+      <div class="card"><h2>Athlete List</h2><input id="aSearch" class="search" placeholder="Search by name or sport" onkeyup="searchAthletes()">
+        <div class="table-wrap"><table><thead><tr><th>Name</th><th>Age</th><th>Sport</th><th>Action</th></tr></thead><tbody id="athleteRows"></tbody></table></div>
+      </div>
+    </section>
+
+    <section id="coaches" class="page">
+      <div class="heading"><div><small>TRAINING STAFF</small><h1>Coach Management</h1></div></div>
+      <div class="card"><h2>Add Coach</h2><div class="form-row"><input id="cName" placeholder="Coach name"><input id="cSport" placeholder="Specialization"><input id="cExp" type="number" placeholder="Experience in years"><button onclick="addCoach()">Save Coach</button></div></div>
+      <div class="card"><h2>Coach List</h2><div class="table-wrap"><table><thead><tr><th>Name</th><th>Specialization</th><th>Experience</th><th>Action</th></tr></thead><tbody id="coachRows"></tbody></table></div></div>
+    </section>
+
+
+    <section id="batches" class="page">
+      <div class="heading"><div><small>GROUP MANAGEMENT</small><h1>Batch Allocation</h1></div></div>
+      <div class="card"><h2>Create Training Batch</h2>
+        <div class="form-row"><input id="bName" placeholder="Batch name"><select id="bSport"></select><select id="bCoach"></select><input id="bTime" placeholder="Training time"><button id="batchSaveBtn" onclick="addBatch()">Save Batch</button><button id="batchCancelBtn" class="secondary" onclick="cancelBatchEdit()" style="display:none">Cancel</button></div>
+      </div>
+      <div class="card"><h2>Batch List</h2><div class="table-wrap"><table><thead><tr><th>Batch</th><th>Sport</th><th>Coach</th><th>Timing</th><th>Action</th></tr></thead><tbody id="batchRows"></tbody></table></div></div>
+    </section>
+
+    <section id="schedule" class="page">
+      <div class="heading"><div><small>WEEKLY PLAN</small><h1>Training Schedule</h1></div></div>
+      <div class="card"><h2>Add Training Session</h2>
+        <div class="form-row"><select id="sDay"><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option></select><select id="sSport"></select><select id="sCoach"></select><input id="sTime" type="time"><select id="sPlace"></select><button id="sessionSaveBtn" onclick="addSession()">Save Session</button><button id="sessionCancelBtn" class="secondary" onclick="cancelSessionEdit()" style="display:none">Cancel</button></div>
+      </div>
+      <div class="card"><h2>Weekly Training Sessions</h2><div class="table-wrap"><table><thead><tr><th>Day</th><th>Sport</th><th>Coach</th><th>Time</th><th>Ground / Court</th><th>Action</th></tr></thead><tbody id="scheduleRows"></tbody></table></div></div>
+    </section>
+
+    <section id="sports" class="page">
+      <div class="heading"><div><small>SPORTS PROGRAMS</small><h1>Sports & Grounds</h1></div></div>
+      <div class="card">
+        <h2>Add New Sport</h2>
+        <div class="form-row">
+          <input id="newSportName" placeholder="Sport name">
+          <button onclick="addSport()">Add Sport</button>
+        </div>
+        <p class="hint">New sports automatically appear in athlete, batch, and training dropdowns.</p>
+      </div>
+      <div class="card">
+        <h2>Available Sports</h2>
+        <div id="sportsList" class="sports"></div>
+      </div>
+      <div class="card">
+        <h2>Manage Training Grounds</h2>
+        <div class="form-row">
+          <input id="newGroundName" placeholder="Ground / court name">
+          <button onclick="addGround()">Add Ground</button>
+        </div>
+        <div id="groundsList" class="option-list"></div>
+        <p class="hint">New grounds automatically appear in the training schedule dropdown.</p>
+      </div>
+    </section>
+
+    <section id="attendance" class="page">
+      <div class="heading"><div><small>DAILY RECORD</small><h1>Attendance Management</h1></div></div>
+      <div class="card"><h2>Mark Attendance</h2><div class="form-row"><select id="attAthlete"></select><select id="attStatus"><option>Present</option><option>Absent</option><option>Late</option></select><button onclick="markAttendance()">Save Attendance</button></div></div>
+      <div class="card"><h2>Attendance Records</h2><div class="table-wrap"><table><thead><tr><th>Athlete</th><th>Status</th><th>Date</th></tr></thead><tbody id="attendanceRows"></tbody></table></div></div>
+    </section>
+
+    <section id="performance" class="page">
+      <div class="heading"><div><small>ATHLETE PROGRESS</small><h1>Performance Records</h1></div></div>
+      <div class="card"><h2>Add Performance Score</h2><p class="hint">Demo performance records are preloaded. Choose an athlete and add a score from 0 to 100.</p><div class="form-row"><select id="pAthlete"></select><input id="pTest" placeholder="Test name (e.g. Sprint)"><input id="pScore" type="number" min="0" max="100" placeholder="Score out of 100"><button onclick="addPerformance()">Save Score</button></div></div>
+      <div class="card"><h2>Performance List</h2><div class="table-wrap"><table><thead><tr><th>Athlete</th><th>Test</th><th>Score</th><th>Action</th></tr></thead><tbody id="performanceRows"></tbody></table></div></div>
+    </section>
+    <footer>Lovely Professional University | Student Project Demo</footer>
+  </main>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
